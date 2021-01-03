@@ -517,14 +517,19 @@ update
                 });
                 return false;
             }
+
+            print("Trigger: " + vars.watchers["trigger"].Current);
+
+            if ( vars.watchers["trigger"].Current == 3 || vars.watchers["trigger"].Current == 1) {
+                reset = true;
+                break;
+            }
+
             // Convert next split to int
             int nextSplit;
             var success = int.TryParse(vars.nextsplit, out nextSplit);
             nextSplit = success ? nextSplit : 0;
-            if ( vars.watchers["trigger"].Current == 1) {
-                reset = true;
-                break;
-            }
+
             if ( !vars.ingame) {
                 if (vars.watchers["level"].Current == 0 && vars.watchers["trigger"].Current == 17 && vars.watchers["lives"].Current == 5) {
                     start = true;
@@ -2320,6 +2325,7 @@ start
 reset
 {
     if ( current.reset ) {
+        print("inside reset");
         current.reset = false;
         return true;
     }
